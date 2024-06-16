@@ -40,6 +40,14 @@ pipeline {
             }
             
         }
+        stage('Print logs') {
+            steps {
+                script {
+                    echo "Trabajo: ${env.JOB_NAME}"
+                    echo "Ejecución número: ${env.BUILD_NUMBER}"
+                }
+            }
+        }
     }
     post {
         always {
@@ -48,7 +56,7 @@ pipeline {
         }
         failure {
             mail(
-                to: 'jairohernan.espinoza245@comunidadunir.net',
+                to: 'lab1@comunidadunir.net',
                 subject: "Failed: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
                 body: "The job ${env.JOB_NAME} #${env.BUILD_NUMBER} has failed. Check the logs for more information."
             )
