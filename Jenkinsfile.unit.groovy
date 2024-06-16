@@ -21,37 +21,30 @@ pipeline {
         stage('Unit tests') {
             steps {
                 sh 'make test-unit'
+                archiveArtifacts artifacts: 'results/*.xml'
             }
         }
         stage('API Tests') {
             steps {
                 echo 'Running API tests'
                 sh 'make test-api'
-
-            }
-            post {
-                always {
-                    archiveArtifacts artifacts: 'results/*.xml'
-                    junit 'results/*.xml'
-                }
+                archiveArtifacts artifacts: 'results/*.xml'
+                
             }
         }
         stage('E2E Tests') {
             steps {
                 echo 'Running E2E tests'
-                sh 'make test-e2e'  // Asegúrate de que este comando ejecuta tus pruebas E2E
+                sh 'make test-e2e'
+                archiveArtifacts artifacts: 'results/*.xml'
             }
-            post {
-                always {
-                    archiveArtifacts artifacts: 'results/*.xml'
-                    junit 'results/*.xml'
-                }
-            }
+            
         }
     }
     post {
         always {
-            junit 'results/*.xml'
+            junit 'results/*_result.xml'
+            cleanWs()
         }
         failure {
             mail(

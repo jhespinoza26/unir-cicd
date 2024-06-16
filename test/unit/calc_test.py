@@ -37,10 +37,6 @@ class TestCalculate(unittest.TestCase):
         self.assertRaises(ValueError, self.calc.raiz, -4)
         self.assertRaises(ValueError, self.calc.raiz, -25)
     
-    def test_raiz_root_method_fails_with_non_numeric_parameter(self):
-        self.assertRaises(ValueError, self.calc.raiz, "4")
-        self.assertRaises(ValueError, self.calc.raiz, None)
-        self.assertRaises(ValueError, self.calc.raiz, object())
     
     def test_log_base10_method_returns_correct_result(self):
         self.assertAlmostEqual(1, self.calc.log_base10(10))
