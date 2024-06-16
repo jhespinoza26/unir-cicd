@@ -27,12 +27,12 @@ pipeline {
             steps {
                 echo 'Running API tests'
                 sh 'make test-api'
-                
+
             }
             post {
                 always {
-                    archiveArtifacts artifacts: 'api-tests-results/*.xml'
-                    junit 'api-tests-results/*.xml'
+                    archiveArtifacts artifacts: 'results/*.xml'
+                    junit 'results/*.xml'
                 }
             }
         }
@@ -43,8 +43,8 @@ pipeline {
             }
             post {
                 always {
-                    archiveArtifacts artifacts: 'e2e-tests-results/*.xml'
-                    junit 'e2e-tests-results/*.xml'
+                    archiveArtifacts artifacts: 'results/*.xml'
+                    junit 'results/*.xml'
                 }
             }
         }
